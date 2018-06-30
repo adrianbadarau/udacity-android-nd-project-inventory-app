@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.add_product_fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity
                     .append(query.getString(query.getColumnIndex(ProductEntity.COLUMN_PRODUCT_NAME)))
                     .append(" |ProductPrice = ")
                     .append(query.getDouble(query.getColumnIndex(ProductEntity.COLUMN_PRICE)))
-                    .append(" |Product Quantity = ")
+                    .append(" |ProductPOJO Quantity = ")
                     .append(query.getInt(query.getColumnIndex(ProductEntity.COLUMN_QUANTITY)))
             ;
         }

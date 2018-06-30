@@ -9,7 +9,7 @@ public final class InventoryContract {
     public static final class ProductEntity implements BaseColumns{
         public static final String TABLE_NAME = "products";
         public static final String ID = BaseColumns._ID;
-        public static final String COLUMN_PRODUCT_NAME = "prduct_name";
+        public static final String COLUMN_PRODUCT_NAME = "product_name";
         public static final String COLUMN_PRICE = "price";
         public static final String COLUMN_QUANTITY = "quantity";
         public static final String COLUMN_SUPPLIER_NAME = "supplier_name";
