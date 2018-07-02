@@ -18,4 +18,5 @@
     <string name="prod_supplier_phone_lbl">Sup.Phone</string>
     <string name="prod_call_supp_btn_txt">Call Supplier</string>
     <string name="prod_delete_btn_txt">Delete prod.</string>
+    <string name="prod_sell_ok">Product sold !</string>
 </resources>
