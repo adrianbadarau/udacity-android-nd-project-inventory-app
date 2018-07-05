@@ -44,7 +44,7 @@ public class ProductAdapter extends CursorAdapter {
         TextView prodPriceTV = (TextView) view.findViewById(R.id.prod_list_item_product_price_tv);
         prodPriceTV.setText(String.format(Locale.GERMAN, "%.2f", product.getPrice()));
 
-        ((Button) view.findViewById(R.id.buy_product_btn)).setOnClickListener(new View.OnClickListener() {
+        ((TextView) view.findViewById(R.id.buy_product_btn)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Uri updateUri = ContentUris.withAppendedId(InventoryContract.ProductEntity.CONTENT_URI, product.getId());
@@ -64,6 +64,8 @@ public class ProductAdapter extends CursorAdapter {
             }
         });
     }
+
+
 
 
 }

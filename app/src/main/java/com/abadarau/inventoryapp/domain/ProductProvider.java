@@ -47,6 +47,7 @@ public class ProductProvider extends ContentProvider {
                 break;
             case PRODUCT_ID:
                 selection = InventoryContract.ProductEntity.ID + "= ?";
+                selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri))};
                 cursor = database.query(InventoryContract.ProductEntity.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
                 break;
             default:

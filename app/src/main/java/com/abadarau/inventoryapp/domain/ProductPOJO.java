@@ -36,6 +36,9 @@ public class ProductPOJO {
     }
 
     public Integer getQty() {
+        if(qty == null){
+            qty = 0;
+        }
         return qty;
     }
 

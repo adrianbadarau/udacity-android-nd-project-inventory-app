@@ -49,11 +49,15 @@
             android:textAlignment="center"
             tools:text="3" />
 
-        <Button
+        <TextView
             android:id="@+id/buy_product_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/buy_btn_lbl" />
+            android:text="@string/buy_btn_lbl"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+            android:textStyle="bold|italic" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
