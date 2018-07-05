@@ -4,8 +4,13 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -16,6 +21,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.abadarau.inventoryapp.domain.InventoryDbHelper;
@@ -23,13 +29,19 @@ import com.abadarau.inventoryapp.domain.InventoryDbHelper;
 import static com.abadarau.inventoryapp.domain.InventoryContract.*;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, LoaderManager.LoaderCallbacks<Cursor> {
 
+    private static final int PRODUCT_LOADER = 1;
     private InventoryDbHelper inventoryDbHelper;
+    private ProductAdapter productAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // we have a seeder for test @TODO remove
+//        inventoryDbHelper = new InventoryDbHelper(this);
+//        insertData();
+        // @TODO untill here
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -52,10 +64,11 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-//        We instantiate the product Helper
-        inventoryDbHelper = new InventoryDbHelper(this);
-        insertData();
-        runQueryForData();
+        ListView productList = (ListView) findViewById(R.id.product_list_view);
+        productAdapter = new ProductAdapter(this, null);
+        productList.setAdapter(productAdapter);
+
+        getSupportLoaderManager().initLoader(PRODUCT_LOADER, null, this);
     }
 
     private void runQueryForData() {
@@ -68,7 +81,7 @@ public class MainActivity extends AppCompatActivity
         Cursor query = database.query(ProductEntity.TABLE_NAME, projection, null, null, null, null, null);
         Log.i("!!!!____Database Entity Count: ", String.valueOf(query.getCount()));
         StringBuilder productsLogText = new StringBuilder();
-        while (query.moveToNext()){
+        while (query.moveToNext()) {
             productsLogText
                     .append("\n New Row :")
                     .append(" |ProductName = ")
@@ -152,5 +165,21 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @NonNull
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
+        return new CursorLoader(this, ProductEntity.CONTENT_URI, null, null, null, null);
+    }
+
+    @Override
+    public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
+        productAdapter.swapCursor(data);
+    }
+
+    @Override
+    public void onLoaderReset(@NonNull Loader<Cursor> loader) {
+        productAdapter.swapCursor(null);
     }
 }

@@ -20,6 +20,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".ManageProductActivity"></activity>
+        <provider
+            android:authorities="com.abadarau.inventoryapp"
+            android:name=".domain.ProductProvider"
+            android:exported="false"/>
     </application>
 
 </manifest>

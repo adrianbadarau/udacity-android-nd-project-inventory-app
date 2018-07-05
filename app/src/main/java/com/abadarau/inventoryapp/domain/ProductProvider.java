@@ -27,7 +27,7 @@ public class ProductProvider extends ContentProvider {
 
     static {
         URI_MATCHER.addURI(InventoryContract.CONTENT_AUTHORITY, InventoryContract.PRODUCTS_PATH, PRODUCTS);
-        URI_MATCHER.addURI(InventoryContract.CONTENT_AUTHORITY, InventoryContract.PRODUCTS_PATH + "#", PRODUCT_ID);
+        URI_MATCHER.addURI(InventoryContract.CONTENT_AUTHORITY, InventoryContract.PRODUCTS_PATH + "/#", PRODUCT_ID);
     }
 
     @Override
@@ -153,6 +153,9 @@ public class ProductProvider extends ContentProvider {
         item.setId(
                 cursor.getInt(cursor.getColumnIndex(InventoryContract.ProductEntity.ID))
         );
+        item.setName(
+                cursor.getString(cursor.getColumnIndex(InventoryContract.ProductEntity.COLUMN_PRODUCT_NAME))
+        );
         item.setQty(
                 cursor.getInt(cursor.getColumnIndex(InventoryContract.ProductEntity.COLUMN_QUANTITY))
         );
@@ -167,5 +170,16 @@ public class ProductProvider extends ContentProvider {
         );
 
         return item;
+    }
+
+    public static ContentValues getPojoUpdateValues(ProductPOJO product){
+        ContentValues values = new ContentValues();
+        values.put(InventoryContract.ProductEntity.ID, product.getId());
+        values.put(InventoryContract.ProductEntity.COLUMN_PRODUCT_NAME, product.getName());
+        values.put(InventoryContract.ProductEntity.COLUMN_QUANTITY, product.getQty());
+        values.put(InventoryContract.ProductEntity.COLUMN_PRICE, product.getPrice());
+        values.put(InventoryContract.ProductEntity.COLUMN_SUPPLIER_NAME, product.getSupplierName());
+        values.put(InventoryContract.ProductEntity.COLUMN_SUPPLIER_PHONE_NUMBER, product.getSupplierPhone());
+        return values;
     }
 }

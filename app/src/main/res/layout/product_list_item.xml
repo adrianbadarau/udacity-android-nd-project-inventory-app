@@ -11,14 +11,14 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/product_name_tv"
+            android:id="@+id/prod_list_item_product_name_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             tools:text="Test Product" />
 
         <TextView
-            android:id="@+id/product_price_tv"
+            android:id="@+id/prod_list_item_product_price_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -42,7 +42,7 @@
             android:textAlignment="viewEnd" />
 
         <TextView
-            android:id="@+id/product_qty_tv"
+            android:id="@+id/prod_list_item_product_qty_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
