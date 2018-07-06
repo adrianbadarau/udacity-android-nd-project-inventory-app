@@ -119,15 +119,20 @@ public class ManageProductActivity extends AppCompatActivity implements LoaderMa
         ((Button) findViewById(R.id.product_add_btn)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Integer qty = Integer.valueOf(productQtyTV.getText().toString());
-                product.setQty(++qty);
+                Integer qty = !productQtyTV.getText().toString().isEmpty() ? Integer.valueOf(productQtyTV.getText().toString()) : 0;
+                if (qty <= 0) {
+                    qty = 1;
+                } else {
+                    ++qty;
+                }
+                product.setQty(qty);
                 productQtyTV.setText(qty.toString());
             }
         });
         ((Button) findViewById(R.id.product_remove_btn)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Integer qty = Integer.valueOf(productQtyTV.getText().toString());
+                Integer qty = !productQtyTV.getText().toString().isEmpty() ? Integer.valueOf(productQtyTV.getText().toString()) : 0;
                 if (qty <= 0) {
                     qty = 0;
                 } else {
@@ -144,6 +149,9 @@ public class ManageProductActivity extends AppCompatActivity implements LoaderMa
         if (productNameTV.getText().toString().isEmpty() || productPriceTV.getText().toString().isEmpty() || productQtyTV.getText().toString().isEmpty()) {
             valid = false;
             Toast.makeText(this, R.string.err_empty_req_fields, Toast.LENGTH_LONG).show();
+        } else if((Integer.parseInt(productQtyTV.getText().toString()) < 0) || (Double.parseDouble(productQtyTV.getText().toString().replace(",",".")) < 0)){
+            valid = false;
+            Toast.makeText(this, R.string.err_num_fields_negative, Toast.LENGTH_LONG).show();
         }
         return valid;
     }

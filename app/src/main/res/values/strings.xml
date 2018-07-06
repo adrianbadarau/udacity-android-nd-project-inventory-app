@@ -34,4 +34,5 @@
     <string name="err_empty_req_fields">Please make sure that the required fields are filled</string>
     <string name="prod_save_succ">Product succesfully saved</string>
     <string name="err_save">There was an error saving the product</string>
+    <string name="err_num_fields_negative">Please make sure that all numeric fields are grater than 0</string>
 </resources>
