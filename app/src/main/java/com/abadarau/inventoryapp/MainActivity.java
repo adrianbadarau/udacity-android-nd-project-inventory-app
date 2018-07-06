@@ -40,10 +40,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // we have a seeder for test @TODO remove
-//        inventoryDbHelper = new InventoryDbHelper(this);
-//        insertData();
-        // @TODO untill here
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -83,45 +80,6 @@ public class MainActivity extends AppCompatActivity
 
 
         getSupportLoaderManager().initLoader(PRODUCT_LOADER, null, this);
-    }
-
-    private void runQueryForData() {
-        SQLiteDatabase database = inventoryDbHelper.getReadableDatabase();
-        String[] projection = {
-                ProductEntity.COLUMN_PRODUCT_NAME,
-                ProductEntity.COLUMN_PRICE,
-                ProductEntity.COLUMN_QUANTITY,
-        };
-        Cursor query = database.query(ProductEntity.TABLE_NAME, projection, null, null, null, null, null);
-        Log.i("!!!!____Database Entity Count: ", String.valueOf(query.getCount()));
-        StringBuilder productsLogText = new StringBuilder();
-        while (query.moveToNext()) {
-            productsLogText
-                    .append("\n New Row :")
-                    .append(" |ProductName = ")
-                    .append(query.getString(query.getColumnIndex(ProductEntity.COLUMN_PRODUCT_NAME)))
-                    .append(" |ProductPrice = ")
-                    .append(query.getDouble(query.getColumnIndex(ProductEntity.COLUMN_PRICE)))
-                    .append(" |ProductPOJO Quantity = ")
-                    .append(query.getInt(query.getColumnIndex(ProductEntity.COLUMN_QUANTITY)))
-            ;
-        }
-        Log.i("!!!!____DB Content:", productsLogText.toString());
-        query.close();
-    }
-
-    private void insertData() {
-        SQLiteDatabase database = inventoryDbHelper.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(ProductEntity.COLUMN_PRODUCT_NAME, "TestProduct");
-        values.put(ProductEntity.COLUMN_PRICE, 22.55);
-        values.put(ProductEntity.COLUMN_QUANTITY, 2);
-        values.put(ProductEntity.COLUMN_SUPPLIER_NAME, "ProductsRUs");
-        values.put(ProductEntity.COLUMN_SUPPLIER_PHONE_NUMBER, "+01455-235-112");
-
-        long newRowId = database.insert(ProductEntity.TABLE_NAME, null, values);
-
-        Log.i("!!!!!____DATABASE INSERT ID: ", String.valueOf(newRowId));
     }
 
     @Override
